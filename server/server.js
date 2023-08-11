@@ -18,9 +18,17 @@ const wsServer = new WebSocket({
 const generateUsername = () => {
 	const adjectives = ['Happy', 'Lucky', 'Clever', 'Cool', 'Energetic']
 	const nouns = ['Cat', 'Dog', 'Fox', 'Tiger', 'Rabbit']
-	const adjective = adjectives[Math.floor(Math.random() * adjectives.length)]
-	const noun = nouns[Math.floor(Math.random() * nouns.length)]
-	return `${adjective}${noun}`
+
+	let username = ''
+
+	do {
+		const adjective =
+			adjectives[Math.floor(Math.random() * adjectives.length)]
+		const noun = nouns[Math.floor(Math.random() * nouns.length)]
+		username = `${adjective}${noun}`
+	} while (clients.some((client) => client.username === username))
+
+	return username
 }
 
 const clients = []
